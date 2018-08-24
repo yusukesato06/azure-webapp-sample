@@ -1,0 +1,15 @@
+/home/LogFiles/rsyslog/* {
+    su root root
+    missingok
+    notifempty
+    daily 
+    rotate 999
+    dateext
+    dateformat _%Y%m%d
+    create
+    sharedscripts
+    delaycompress
+    postrotate
+        /usr/bin/supervisorctl restart rsyslogd  > /dev/null 2>/dev/null || true
+    endscript
+}

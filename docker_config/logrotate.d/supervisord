@@ -1,0 +1,15 @@
+/home/LogFiles/supervisord/*log {
+    su root root
+    missingok
+    notifempty
+    daily
+    rotate 999
+    dateext
+    dateformat _%Y%m%d
+    create
+    sharedscripts
+    delaycompress
+    postrotate
+        kill -HUP `ps ax | grep "/usr/bin/python /usr/bin/supervisord -c /etc/supervisord.d/supervisord.conf" | grep -v grep | awk '{print $1}'`  > /dev/null 2>/dev/null || true
+    endscript
+}
